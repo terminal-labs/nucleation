@@ -1,14 +1,17 @@
 base:
-  'roles:project':
+  'roles:master':
     - match: grain
     - clean
     - basebox
     - basebox.symlink
-    - users                     {# requires basebox #}
+    - basebox.modify_bash_env
+    - network
+    - network.cluster
+    - users
     - python
-  'roles:prod':
-    - match: grain
-    - deploy_keys
-  'roles:dev':
-    - match: grain
-    - users.aliases             {# requires users #}
+    - conda
+    #- logging
+    - supervisord
+    - supervisord.logging_server
+    - supervisord.start
+    #- salt_master
