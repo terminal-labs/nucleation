@@ -17,6 +17,7 @@ extra
 *.pex
 *.env.sh
 
+keys
 auth
 maintenance
 run
