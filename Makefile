@@ -11,5 +11,5 @@ download_python_environment_manager:
 		sudo chown $(SUDO_USER) create.sh; \
 	fi
 
-rambobox: download_python_environment_manager
+createdpe: download_python_environment_manager
 	@sudo bash create.sh $(SUDO_USER)
