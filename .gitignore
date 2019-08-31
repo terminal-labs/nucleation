@@ -15,7 +15,9 @@ extra
 *egg-info
 *.pyc
 *.pex
+*.env.sh
 
+auth
 maintenance
 run
 tmp
