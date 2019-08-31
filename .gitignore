@@ -1,0 +1,30 @@
+# use glob syntax.
+syntax: glob
+
+## patterns
+*.orig
+*.tgz
+*.swp
+*.swo
+*~
+*.DS_Store*
+*.vagrant*
+*.pem
+*.pub
+
+## paths
+build
+srv/salt/ssh_keys/
+env.sh
+digitalocean.env.sh
+aws.env.sh
+.tmp/
+.downloads
+.rambo-tmp
+keys/
+auth/*
+*/auth
+secrets
+auth/tokens/*
+*.egg-info
+*__pycache__*
