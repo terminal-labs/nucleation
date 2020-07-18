@@ -15,6 +15,8 @@ sleep 5s
 echo "Accepting the local minion's key"
 salt-key -A -y
 
+sleep 5s
+
 # Is Salt ready yet? Proceed once it is.
 salt \* test.ping --force-color
 while [ $? -ne 0 ]
@@ -22,7 +24,6 @@ do
     echo "Waiting for Salt to be up. Testing again."
     salt \* test.ping --force-color
 done
-
 
 echo "Running highstate. Waiting..."
 salt \* state.highstate --force-color

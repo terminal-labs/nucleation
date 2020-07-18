@@ -5,6 +5,9 @@ install_salt_deps:
       - python-dev
       - python-m2crypto
       - python-virtualenv
+      - zlib1g-dev
+      - libffi-dev
+      - python3-dev
 
 bitbucket.org:
   ssh_known_hosts:
