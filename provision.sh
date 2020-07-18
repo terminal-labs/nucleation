@@ -10,9 +10,11 @@ fi
 echo "Installing Salt with master and Python 3"
 bash bootstrap-salt.sh -M -x python3
 
+echo "Start the salt minion"
+salt-minion start
+
 echo "Accepting the local minion's key"
 salt-key -A -y
-
 
 # Is Salt ready yet? Proceed once it is.
 salt \* test.ping --force-color
