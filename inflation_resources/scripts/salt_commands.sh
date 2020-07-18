@@ -38,22 +38,24 @@ done
 echo "pinging master"
 saltmaster "master" "test.ping"
 
-# echo "set reboot round grain on master"
-# saltmaster "master" "grains.setval reboot_round 0"
-#
-# echo "syncing custom modules on master"
-# saltmaster "master" "saltutil.sync_modules"
-#
-# echo "set default grains on master"
-# saltmaster "master" "grains.setval primary_role master"
-# saltmaster "master" "grains.setval vm_size 8gb"
-#
-# raw_public_key=$(cat /var/tmp/universal_cluster_key.pub)
-# FS=' ' read -r -a array <<< "$raw_public_key"
-# public_key="${array[1]}"
-#
-# echo "setting salt master ip address"
-# host_ip_address=$(su saltmaster -c "source bin/activate; python /home/saltmaster/salt_src/scripts/salt 'master' -c /home/saltmaster/salt_controlplane/etc/salt inflation.get_primary_address --output newline_values_only --timeout 1 --no-color")
+echo "set reboot round grain on master"
+saltmaster "master" "grains.setval reboot_round 0"
+
+echo "syncing custom modules on master"
+saltmaster "master" "saltutil.sync_modules"
+
+echo "set default grains on master"
+saltmaster "master" "grains.setval primary_role master"
+saltmaster "master" "grains.setval vm_size 8gb"
+
+raw_public_key=$(cat /var/tmp/universal_cluster_key.pub)
+FS=' ' read -r -a array <<< "$raw_public_key"
+public_key="${array[1]}"
+
+echo "setting salt master ip address"
+host_ip_address=$(su saltmaster -c "source bin/activate; python /home/saltmaster/salt_src/scripts/salt 'master' -c /home/saltmaster/salt_controlplane/etc/salt inflation.get_primary_address --output newline_values_only --timeout 1 --no-color")
+echo $host_ip_address
+
 #
 # sed -i -e 's~{{ master_address }}~'"$host_ip_address"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
 #
