@@ -15,6 +15,7 @@ syntax: glob
 *#
 
 ## paths
+auth
 activate.sh
 env.sh
 digitalocean.env.sh
