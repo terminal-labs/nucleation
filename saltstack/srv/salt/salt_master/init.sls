@@ -36,7 +36,7 @@ create_salt_controlplane:
 
 install_venv:
   cmd.run:
-    - name: virtualenv /home/saltmaster/salt_venv --system-site-packages
+    - name: virtualenv -p /usr/bin/python3 /home/saltmaster/salt_venv
     - runas: saltmaster
 
 update_pip:

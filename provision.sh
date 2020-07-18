@@ -10,9 +10,6 @@ fi
 echo "Installing Salt with master and Python 3"
 bash bootstrap-salt.sh -M -x python3
 
-echo "Start the salt minion"
-salt-minion start -d
-
 sleep 5s
 
 echo "Accepting the local minion's key"
@@ -29,3 +26,5 @@ done
 
 echo "Running highstate. Waiting..."
 salt \* state.highstate --force-color
+
+bash /vagrant/inflation_resources/scripts/salt_commands.sh
