@@ -1,45 +1,25 @@
-.coverage
-logs
-keys.sh
-id_rsa
-id_rsa.pub
+syntax: glob
 
-package-lock.json
-__pycache__
-env
-node_modules
-extra
-.vagrant
-\#*\#
+## patterns
+*.orig
+*.tgz
+*.swp
+*.swo
 *~
-*egg-info
-*.pyc
-*.pex
-*.env.sh
+*.DS_Store*
+*.vagrant*
+*.pem
+*.pub
+*.log
+*.#*
+*#
 
-keys
-auth
-maintenance
-run
-tmp
-.tmp
-manifest
+## paths
 activate.sh
-create.sh
-*keys.sh
-.Trash*
-*.zip
-inflation-master
-*nodes
-*nohup.out
-*workingdirs
-*secrets
-*dist
-
-*.terraform
-*terraform.tfstate
-*terraform.tfstate.backup
-*terraform_*.zip
-
-ubuntu-bionic-18.04-cloudimg-console.log
-ubuntu-xenial-16.04-cloudimg-console.log
+env.sh
+digitalocean.env.sh
+aws.env.sh
+.tmp/**
+keys/**
+.rambo-tmp
+saltstack/etc
