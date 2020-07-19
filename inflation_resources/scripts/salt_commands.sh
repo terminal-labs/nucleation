@@ -56,27 +56,30 @@ echo "setting salt master ip address"
 host_ip_address=$(su saltmaster -c "source bin/activate; python /home/saltmaster/salt_src/scripts/salt 'master' -c /home/saltmaster/salt_controlplane/etc/salt inflation.get_primary_address --output newline_values_only --timeout 1 --no-color")
 echo $host_ip_address
 
-#
-# sed -i -e 's~{{ master_address }}~'"$host_ip_address"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
-#
-# vendor=$(cat /vagrant/.tmp/vendor)
-#
-# if [ "$vendor" == "digitalocean" ]
-# then
-#   personal_access_token=$(cat /vagrant/.tmp/auth_token)
-#   sed -i -e 's~{{ personal_access_token }}~'"$personal_access_token"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
-# fi
-#
-# if [ "$vendor" == "aws" ]
-# then
-#   personal_access_key=$(cat /vagrant/.tmp/secret_auth_token)
-#   sed -i -e 's~{{ personal_access_key }}~'"$personal_access_key"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
-#   personal_access_token=$(cat /vagrant/.tmp/auth_token)
-#   sed -i -e 's~{{ personal_access_token }}~'"$personal_access_token"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
-# fi
-#
-# bash /vagrant/inflation_resources/scripts/spawn_minions.sh
-#
+
+sed -i -e 's~{{ master_address }}~'"$host_ip_address"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
+
+vendor=$(cat /vagrant/.tmp/vendor)
+echo $vendor
+
+if [ "$vendor" == "digitalocean" ]
+then
+  personal_access_token=$(cat /vagrant/.tmp/auth_token)
+  sed -i -e 's~{{ personal_access_token }}~'"$personal_access_token"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
+fi
+
+if [ "$vendor" == "aws" ]
+then
+  personal_access_key=$(cat /vagrant/.tmp/secret_auth_token)
+  sed -i -e 's~{{ personal_access_key }}~'"$personal_access_key"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
+  personal_access_token=$(cat /vagrant/.tmp/auth_token)
+  sed -i -e 's~{{ personal_access_token }}~'"$personal_access_token"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
+  echo $personal_access_key
+  echo $personal_access_token
+fi
+
+bash /vagrant/inflation_resources/scripts/spawn_minions.sh
+
 # echo "pinging minions"
 # saltmaster "*" "test.ping"
 #
