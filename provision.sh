@@ -19,10 +19,6 @@ bash bootstrap-salt.sh -M -x python3
 
 sleep 5s
 
-salt-minion restart
-
-sleep 5s
-
 echo "Accepting the local minion's key"
 salt-key -A -y
 
