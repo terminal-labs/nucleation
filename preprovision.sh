@@ -1,1 +1,1 @@
-python inflation_resources/config_parser.py inflate-hadoop-on-aws.conf
+python inflation_resources/config_parser.py configs/inflate-hadoop-on-aws.conf

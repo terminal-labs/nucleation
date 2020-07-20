@@ -51,7 +51,7 @@ update_pip:
 place_pip_requirements_file:
   file.managed:
     - name: /home/saltmaster/salt_venv/requirements.txt
-    - source: salt://salt_master/requirements.txt
+    - source: salt://salt_master/files/requirements.txt
     - user: saltmaster
     - group: saltmaster
 
@@ -81,6 +81,14 @@ create_modules_dir:
     - group: saltmaster
     - makedirs: True
 
+/home/saltmaster/salt_controlplane/etc/pillar:
+  file.directory:
+    - user: saltmaster
+    - group: saltmaster
+    - recurse:
+      - user
+      - group
+
 place_cluster_files:
   cmd.run:
     - name: cp -r /vagrant/inflation_resources/cluster_init /home/saltmaster/salt_controlplane/etc/salt
@@ -93,36 +101,45 @@ place_deploy_script_files:
     - cwd: /home/saltmaster
     - runas: saltmaster
 
-place_modules_files:
-  cmd.run:
-    - name: cp -r /vagrant/salt_resources/modules/. /home/saltmaster/salt_controlplane/etc/salt/_modules
-    - cwd: /home/saltmaster
-    - runas: saltmaster
+place_inflation_module_file:
+  file.managed:
+    - name: /home/saltmaster/salt_controlplane/etc/salt/_modules/inflation.py
+    - source: salt://salt_master/files/inflation.py
+    - user: saltmaster
+    - group: saltmaster
 
-place_pillar_files:
-  cmd.run:
-    - name: cp -r /vagrant/salt_resources/pillars/. /home/saltmaster/salt_controlplane/etc/pillar
-    - cwd: /home/saltmaster
-    - runas: saltmaster
+place_pillar_top_file:
+  file.managed:
+    - name: /home/saltmaster/salt_controlplane/etc/pillar/top
+    - source: salt://salt_master/files/top.txt
+    - user: saltmaster
+    - group: saltmaster
 
-place_cloud_file:
+place_pillar_saltmine_file:
+  file.managed:
+    - name: /home/saltmaster/salt_controlplane/etc/pillar/saltmine
+    - source: salt://salt_master/files/saltmine.txt
+    - user: saltmaster
+    - group: saltmaster
+
+place_salt_cloud_file:
   file.managed:
     - name: /home/saltmaster/salt_controlplane/etc/salt/cloud
-    - source: salt://salt_master/cloud
+    - source: salt://salt_master/files/etc/cloud
     - user: saltmaster
     - group: saltmaster
 
 place_salt_master_file:
   file.managed:
     - name: /home/saltmaster/salt_controlplane/etc/salt/master
-    - source: salt://salt_master/master
+    - source: salt://salt_master/files/etc/master
     - user: saltmaster
     - group: saltmaster
 
 place_salt_minion_file:
   file.managed:
     - name: /home/saltmaster/salt_controlplane/etc/salt/minion
-    - source: salt://salt_master/minion
+    - source: salt://salt_master/files/etc/minion
     - user: saltmaster
     - group: saltmaster
 
