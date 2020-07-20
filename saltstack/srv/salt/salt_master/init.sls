@@ -9,12 +9,12 @@ install_salt_deps:
       - libffi-dev
       - python3-dev
 
-bitbucket.org:
-  ssh_known_hosts:
-    - present
-    - fingerprint: {{ grains['fingerprint'] }}
-    - fingerprint_hash_type: md5
-    - timeout: 90
+# bitbucket.org:
+#   ssh_known_hosts:
+#     - present
+#     - fingerprint: {{ grains['fingerprint'] }}
+#     - fingerprint_hash_type: md5
+#     - timeout: 90
 
 clone_salt:
    git.latest:
@@ -212,27 +212,16 @@ place_pub_ssh_key_for_universal_login:
     - cwd: /home/saltmaster
     - runas: saltmaster
 
-place_bash_aliases_for_saltmaster:
-  cmd.run:
-    - name: cp -r /vagrant/inflation_resources/bash_aliases/saltmaster.sh /home/saltmaster/.bash_aliases
-    - cwd: /home/saltmaster
-    - runas: saltmaster
+# run_my_script.sh:
+#   cmd.script:
+#     - name: /home/saltmaster/salt_controlplane/rename.sh
+#     - source: salt://salt_master/files/srv/salt/bash_scripts/rename.sh
 
-place_bash_aliases_for_vagrant:
-  cmd.run:
-    - name: cp -r /vagrant/inflation_resources/bash_aliases/vagrant.sh /home/vagrant/.bash_aliases
-    - cwd: /home/saltmaster
-
-place_internal_cli_script:
-  cmd.run:
-    - name: cp -r /vagrant/inflation_resources/internal_cli.py /home/saltmaster/salt_controlplane/internal_cli.py
-    - cwd: /home/saltmaster
-
-install_internal_cli_deps:
-  cmd.run:
-    - name: ./bin/pip install click bash
-    - cwd: /home/saltmaster/salt_venv
-    - runas: saltmaster
+# install_internal_cli_deps:
+#   cmd.run:
+#     - name: ./bin/pip install click bash
+#     - cwd: /home/saltmaster/salt_venv
+#     - runas: saltmaster
 
 /home/saltmaster:
   file.directory:
