@@ -13,7 +13,7 @@
 
 # Set the location of the salt master server. If the master server cannot be
 # resolved, then the minion will fail to start.
-master: 127.0.0.1
+master: localhost
 
 # Set http proxy information for the minion when doing requests
 #proxy_host:
@@ -116,7 +116,7 @@ id: master
 # problems when automatic minion id resolution changes, which can cause the
 # minion to lose connection with the master. To turn off minion id caching,
 # set this config to ``False``.
-minion_id_caching: False
+# minion_id_caching: True
 
 # Append a domain to a hostname in the event that it does not exist.  This is
 # useful for systems where socket.getfqdn() does not actually result in a

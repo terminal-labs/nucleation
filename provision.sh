@@ -1,6 +1,13 @@
 if  [ ! -f "bootstrap.sh" ]; then
     echo "Updating system and installing curl"
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+    apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
     apt update
+    apt upgrade -y
+    apt dist-upgrade -y
+
     apt install curl -y
 
     echo "Downloading Salt Bootstrap"
@@ -9,6 +16,10 @@ fi
 
 echo "Installing Salt with master and Python 3"
 bash bootstrap-salt.sh -M -x python3
+
+sleep 5s
+
+salt-minion restart
 
 sleep 5s
 
@@ -28,4 +39,4 @@ done
 echo "Running highstate. Waiting..."
 salt \* state.highstate --force-color
 
-bash /vagrant/inflation_resources/scripts/salt_commands.sh
+#bash /vagrant/inflation_resources/scripts/salt_commands.sh
