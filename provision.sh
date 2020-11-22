@@ -22,7 +22,7 @@ sleep 5s
 echo "Accepting the local minion's key"
 salt-key -A -y
 
-sleep 10s
+sleep 5s
 
 # Is Salt ready yet? Proceed once it is.
 salt \* test.ping --force-color
