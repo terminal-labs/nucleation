@@ -1,2 +1,0 @@
-sudo apt install virtualenv
-virtualenv -p python3 env

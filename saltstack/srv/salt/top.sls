@@ -3,3 +3,4 @@ base:
     - match: grain
     - basebox
     - platform
+    - platform.stduser

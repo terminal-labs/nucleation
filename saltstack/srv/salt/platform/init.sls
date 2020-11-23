@@ -13,6 +13,11 @@ install_python36:
     - cwd: /home/vagrant
     - name: apt install -y python3.6
 
+install_virtualenv:
+  cmd.run:
+    - cwd: /home/vagrant
+    - name: apt install -y virtualenv
+
 download_vagrant:
   cmd.run:
     - cwd: /home/vagrant
@@ -22,3 +27,8 @@ install_vagrant:
   cmd.run:
     - cwd: /home/vagrant
     - name: dpkg -i vagrant_2.2.6_x86_64.deb
+
+remove_vagrant_deb:
+  cmd.run:
+    - cwd: /home/vagrant
+    - name: rm vagrant_2.2.6_x86_64.deb
