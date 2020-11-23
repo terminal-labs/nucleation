@@ -1,4 +1,4 @@
-APPNAME=nucleation
+APPNAME=primary-nucleation
 help:
 	@echo "usage: make [command]"
 
