@@ -1,36 +1,32 @@
-if  [ ! -f "bootstrap.sh" ]; then
-    echo "Updating system and installing curl"
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update
-    apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-    apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
-    apt update
-    apt upgrade -y
-    apt dist-upgrade -y
+echo "Updating system and installing curl"
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
+apt update
+apt upgrade -y
+apt dist-upgrade -y
 
-    apt install curl -y
+apt install -y ntp
+apt install -y curl
+apt install -y wget
+apt install -y rsync
+apt install -y zip
+apt install -y unzip
+apt install -y build-essential
+apt install -y software-properties-common
 
-    echo "Downloading Salt Bootstrap"
-    curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com
-fi
+apt install -y libcurl4-gnutls-dev
+apt install -y libxml2-dev
 
-echo "Installing Salt with master and Python 3"
-bash bootstrap-salt.sh -M -x python3
+add-apt-repository -y ppa:deadsnakes/ppa
+apt update
+apt install -y python3.6
+apt install -y virtualenv
 
-sleep 5s
-
-echo "Accepting the local minion's key"
-salt-key -A -y
-
-sleep 5s
-
-# Is Salt ready yet? Proceed once it is.
-salt \* test.ping --force-color
-while [ $? -ne 0 ]
-do
-    echo "Waiting for Salt to be up. Testing again."
-    salt \* test.ping --force-color
-done
-
-echo "Running highstate. Waiting..."
-salt \* state.highstate --force-color
+su -m $USER <<'EOF'
+  virtualenv -p python3.6 env
+  . env/bin/activate
+  pip install rambo-vagrant
+  rm VBoxGuestAdditions*
+EOF
